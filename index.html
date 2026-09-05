@@ -55,7 +55,9 @@
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.project{transition:none}}
 
-  </style>
+  
+.category-link{display:flex;align-items:center;gap:10px;padding:20px 0;border-top:1px solid var(--line);font-size:14px;font-weight:700}.category-arrow{margin-left:auto;color:var(--accent)}.category-link:hover,.category-link[aria-current=page]{color:var(--accent)}.collection{min-height:85svh;padding-top:125px}.collection h1{font-size:clamp(42px,6vw,86px);line-height:1.05;letter-spacing:-.055em;margin:20px 0}.collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:48px}.collection-grid .project{grid-column:auto!important;min-height:360px;margin:0}.collection-grid .project h3{font-size:clamp(28px,3vw,44px)}.empty-collection{grid-column:1/-1;border:1px dashed var(--line);padding:64px 28px;color:var(--muted)}@media(max-width:700px){.collection{padding-top:50px}.collection-grid{grid-template-columns:1fr}.category-link{padding:14px 0}}
+</style>
 </head>
 <body>
   <nav>
@@ -64,20 +66,13 @@
   </nav>
 
 
-  <aside class="portfolio-sidebar" aria-label="Portfolio sections">
-    <details class="section-menu" open>
-      <summary class="sidebar-heading">Explore my work</summary>
-      <div class="sidebar-sections">
-        <details class="sidebar-group"><summary><span class="sidebar-number">01</span>Visual Journalism</summary><div class="sidebar-items"><a href="#visual-journalism">Making data visible ↗</a></div></details>
-        <details class="sidebar-group"><summary><span class="sidebar-number">02</span>Research and Design</summary><div class="sidebar-items"><a href="#research-design">Waste, dignity & mobility in Kochi ↗</a><a href="#inclusive-design">Inclusion by default ↗</a></div></details>
-        <details class="sidebar-group"><summary><span class="sidebar-number">03</span>Product Design</summary><div class="sidebar-items"><a href="#research-design">Waste, dignity & mobility in Kochi ↗</a></div></details>
-        <details class="sidebar-group"><summary><span class="sidebar-number">04</span>Graphic Design</summary><div class="sidebar-items"><a href="#graphic-design">Design as a public voice ↗</a></div></details>
-        <details class="sidebar-group"><summary><span class="sidebar-number">05</span>Illustrations</summary><div class="sidebar-items"><p>Coming soon.</p></div></details>
-        <details class="sidebar-group"><summary><span class="sidebar-number">06</span>Paintings</summary><div class="sidebar-items"><p>Coming soon.</p></div></details>
-        <details class="sidebar-group"><summary><span class="sidebar-number">07</span>Sketchbooks!</summary><div class="sidebar-items"><p>Coming soon.</p></div></details>
-      </div>
-    </details>
-  </aside>
+  <aside class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
+<a class="category-link" href="research-and-design.html"><span class="sidebar-number">02</span>Research and Design<span class="category-arrow" aria-hidden="true">↗</span></a>
+<a class="category-link" href="product-design.html"><span class="sidebar-number">03</span>Product Design<span class="category-arrow" aria-hidden="true">↗</span></a>
+<a class="category-link" href="graphic-design.html"><span class="sidebar-number">04</span>Graphic Design<span class="category-arrow" aria-hidden="true">↗</span></a>
+<a class="category-link" href="illustrations.html"><span class="sidebar-number">05</span>Illustrations<span class="category-arrow" aria-hidden="true">↗</span></a>
+<a class="category-link" href="paintings.html"><span class="sidebar-number">06</span>Paintings<span class="category-arrow" aria-hidden="true">↗</span></a>
+<a class="category-link" href="sketchbooks.html"><span class="sidebar-number">07</span>Sketchbooks!<span class="category-arrow" aria-hidden="true">↗</span></a></div></aside>
 
   <main id="top">
     <section class="hero" aria-label="Landing page">
