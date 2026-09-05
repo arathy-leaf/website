@@ -57,6 +57,17 @@
 
   
 .category-link{display:flex;align-items:center;gap:10px;padding:20px 0;border-top:1px solid var(--line);font-size:14px;font-weight:700}.category-arrow{margin-left:auto;color:var(--accent)}.category-link:hover,.category-link[aria-current=page]{color:var(--accent)}.collection{min-height:85svh;padding-top:125px}.collection h1{font-size:clamp(42px,6vw,86px);line-height:1.05;letter-spacing:-.055em;margin:20px 0}.collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:48px}.collection-grid .project{grid-column:auto!important;min-height:360px;margin:0}.collection-grid .project h3{font-size:clamp(28px,3vw,44px)}.empty-collection{grid-column:1/-1;border:1px dashed var(--line);padding:64px 28px;color:var(--muted)}@media(max-width:700px){.collection{padding-top:50px}.collection-grid{grid-template-columns:1fr}.category-link{padding:14px 0}}
+
+    /* Overlay navigation leaves the artwork full bleed. */
+    main,body>footer{margin-left:0}
+    .portfolio-sidebar{position:fixed;top:0;bottom:0;left:0;width:280px;margin:0;padding:88px 22px 28px;z-index:40;transform:translateX(-100%);transition:transform .25s ease;box-shadow:8px 0 30px rgba(0,0,0,.08)}
+    .sidebar-trigger{position:fixed;left:12px;top:78px;z-index:45;border:1px solid var(--line);border-radius:50%;width:42px;height:42px;background:var(--paper);color:var(--ink);font-size:21px;cursor:pointer}
+    .sidebar-edge{position:fixed;left:0;top:0;bottom:0;width:14px;z-index:39}
+    .sidebar-shell:focus-within .portfolio-sidebar,.sidebar-shell.is-open .portfolio-sidebar{transform:translateX(0)}
+    @media(hover:hover){.sidebar-shell:hover .portfolio-sidebar{transform:translateX(0)}}
+    .hero{min-height:100svh}
+    @media(max-width:1000px){.portfolio-sidebar{position:fixed;top:0;bottom:0;margin:0;width:min(280px,85vw);padding:88px 22px 28px}.sidebar-heading{padding-bottom:24px}.sidebar-sections{padding-top:0}}
+    @media(prefers-reduced-motion:reduce){.portfolio-sidebar{transition:none}}
 </style>
 </head>
 <body>
@@ -66,14 +77,14 @@
   </nav>
 
 
-  <aside class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
+  <div class="sidebar-shell"><div class="sidebar-edge" aria-hidden="true"></div><button class="sidebar-trigger" aria-label="Open portfolio menu" aria-controls="portfolio-menu" aria-expanded="false">☰</button><aside id="portfolio-menu" class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="research-and-design.html"><span class="sidebar-number">02</span>Research and Design<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="product-design.html"><span class="sidebar-number">03</span>Product Design<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="graphic-design.html"><span class="sidebar-number">04</span>Graphic Design<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="illustrations.html"><span class="sidebar-number">05</span>Illustrations<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="paintings.html"><span class="sidebar-number">06</span>Paintings<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="sketchbooks.html"><span class="sidebar-number">07</span>Sketchbooks!<span class="category-arrow" aria-hidden="true">↗</span></a>
-<a class="category-link" href="photographs.html"><span class="sidebar-number">08</span>Photographs<span class="category-arrow" aria-hidden="true">↗</span></a></div></aside>
+<a class="category-link" href="photographs.html"><span class="sidebar-number">08</span>Photographs<span class="category-arrow" aria-hidden="true">↗</span></a></div></aside></div>
 
   <main id="top">
     <section class="hero" aria-label="Landing page">
@@ -88,5 +99,16 @@
 
   </main>
 
+<script>
+const shell=document.querySelector('.sidebar-shell');
+const trigger=document.querySelector('.sidebar-trigger');
+const panel=document.querySelector('.portfolio-sidebar');
+function syncMenu(){const open=shell.classList.contains('is-open')||shell.matches(':focus-within')||(matchMedia('(hover:hover)').matches&&shell.matches(':hover'));trigger.setAttribute('aria-expanded',String(open));}
+trigger.addEventListener('click',()=>{if(shell.classList.contains('is-open')){shell.classList.remove('is-open');trigger.blur();}else{shell.classList.add('is-open');}syncMenu();});
+shell.addEventListener('mouseenter',syncMenu);shell.addEventListener('mouseleave',syncMenu);
+shell.addEventListener('focusin',syncMenu);shell.addEventListener('focusout',()=>setTimeout(syncMenu,0));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){shell.classList.remove('is-open');if(shell.contains(document.activeElement))document.activeElement.blur();syncMenu();}});
+document.addEventListener('click',e=>{if(!shell.contains(e.target)){shell.classList.remove('is-open');syncMenu();}});
+</script>
 </body>
 </html>
