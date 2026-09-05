@@ -77,9 +77,22 @@
     .hero.at-right .hero-img{transform:translateX(calc(100vw - 100%))}
     .sidebar-trigger{top:18px}
     @media(prefers-reduced-motion:reduce){.hero-img{transition:none}}
+
+    .site-loader{position:fixed;inset:0;z-index:100;background:#f5f3ee;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;transition:opacity .5s ease,visibility .5s ease}
+    .site-loader[hidden]{display:none}
+    .site-loader.is-finished{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-mark{width:76px;height:76px;fill:none;stroke:#121212;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:240;animation:sketch-in 1.8s ease-in-out infinite}
+    .loader-name{font-size:12px;letter-spacing:.24em;font-family:'DM Mono',monospace}
+    .loader-caption{font-size:10px;color:var(--muted);letter-spacing:.12em;font-family:'DM Mono',monospace;text-transform:uppercase}
+    @keyframes sketch-in{0%{stroke-dashoffset:240}65%,100%{stroke-dashoffset:0}}
+    @media(prefers-reduced-motion:reduce){.loader-mark{animation:none}.site-loader{transition:none}}
 </style>
 </head>
 <body>
+<div class="site-loader" id="site-loader" role="status" aria-live="polite" hidden>
+<svg class="loader-mark" viewBox="0 0 80 80" aria-hidden="true"><path d="M14 64 L18 15 L65 12 L67 65 Z M22 55 L35 34 L44 46 L52 30 L61 55 Z M28 25 L29 25"/></svg>
+<div class="loader-name">ARATHY ALUCKAL</div><div class="loader-caption">Opening the studio</div></div>
+<script>document.getElementById('site-loader').hidden=false;window.loaderStarted=Date.now();</script>
 
 
 
@@ -112,12 +125,22 @@ document.addEventListener('click',e=>{if(!shell.contains(e.target)){shell.classL
 
 const panorama=document.querySelector('.hero');
 let lastPan=0;
-function pan(direction){const now=Date.now();if(now-lastPan<1350)return;const right=direction>0;if(panorama.classList.contains('at-right')===right)return;panorama.classList.toggle('at-right',right);lastPan=now;}
+function pan(direction){if(!document.getElementById("site-loader").hidden)return;const now=Date.now();if(now-lastPan<1350)return;const right=direction>0;if(panorama.classList.contains('at-right')===right)return;panorama.classList.toggle('at-right',right);lastPan=now;}
 panorama.addEventListener('wheel',e=>{e.preventDefault();const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;if(Math.abs(delta)>3)pan(delta);},{passive:false});
 let touchStart=null;
 panorama.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
 panorama.addEventListener('touchend',e=>{if(!touchStart)return;const dx=touchStart.x-e.changedTouches[0].clientX,dy=touchStart.y-e.changedTouches[0].clientY;const delta=Math.abs(dx)>Math.abs(dy)?dx:dy;if(Math.abs(delta)>30)pan(delta);touchStart=null;},{passive:true});
 document.addEventListener('keydown',e=>{if(shell.contains(document.activeElement))return;if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();pan(1);}if(['ArrowUp','ArrowLeft','PageUp','Home'].includes(e.key)){e.preventDefault();pan(-1);}});
+const loader=document.getElementById('site-loader');
+const landingImage=document.querySelector('.hero-img');
+const mainContent=document.querySelector('main');
+mainContent.inert=true;shell.inert=true;
+let loaderDone=false;
+function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.max(0,1200-(Date.now()-window.loaderStarted));setTimeout(()=>{loader.classList.add('is-finished');mainContent.inert=false;shell.inert=false;setTimeout(()=>{loader.hidden=true;},550);},delay);}
+async function artworkReady(){try{await landingImage.decode();}catch(error){}finishLoading();}
+if(landingImage.complete){artworkReady();}else{landingImage.addEventListener('load',artworkReady,{once:true});landingImage.addEventListener('error',finishLoading,{once:true});}
+setTimeout(finishLoading,15000);
+
 </script>
 </body>
 </html>
