@@ -68,13 +68,19 @@
     .hero{min-height:100svh}
     @media(max-width:1000px){.portfolio-sidebar{position:fixed;top:0;bottom:0;margin:0;width:min(280px,85vw);padding:88px 22px 28px}.sidebar-heading{padding-bottom:24px}.sidebar-sections{padding-top:0}}
     @media(prefers-reduced-motion:reduce){.portfolio-sidebar{transition:none}}
+
+    html,body{height:100%;overflow:hidden;background:#fff}
+    main{height:100%;margin:0}
+    .hero{position:fixed;inset:0;width:100%;height:100dvh;min-height:0;padding:0;border:0;overflow:hidden;background:#fff;touch-action:none}
+    .hero::after{display:none}
+    .hero-img{position:absolute;inset:auto;top:0;left:0;width:max(150vw,234.6dvh);height:auto;max-width:none;object-fit:initial;filter:none;transform:translateX(0);transition:transform 1.25s cubic-bezier(.22,.61,.36,1);will-change:transform}
+    .hero.at-right .hero-img{transform:translateX(calc(100vw - 100%))}
+    .sidebar-trigger{top:18px}
+    @media(prefers-reduced-motion:reduce){.hero-img{transition:none}}
 </style>
 </head>
 <body>
-  <nav>
-    <a class="brand" href="#top">ARATHY A.</a>
-    
-  </nav>
+
 
 
   <div class="sidebar-shell"><div class="sidebar-edge" aria-hidden="true"></div><button class="sidebar-trigger" aria-label="Open portfolio menu" aria-controls="portfolio-menu" aria-expanded="false">☰</button><aside id="portfolio-menu" class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
@@ -89,12 +95,6 @@
   <main id="top">
     <section class="hero" aria-label="Landing page">
       <img class="hero-img" src="https://raw.githubusercontent.com/arathy-leaf/website/main/Untitled_Artwork%2074.png" alt="Illustrated sketch of a creative studio workspace" />
-      <div class="hero-content">
-        <div class="eyebrow mono"><span class="dot"></span> Social designer · researcher · visual storyteller</div>
-        <h1>Designing for the worlds we live in.</h1>
-        <p>I work across systems, people, politics and everyday life to turn complex social questions into tangible possibilities.</p>
-      </div>
-      
     </section>
 
   </main>
@@ -109,6 +109,15 @@ shell.addEventListener('mouseenter',syncMenu);shell.addEventListener('mouseleave
 shell.addEventListener('focusin',syncMenu);shell.addEventListener('focusout',()=>setTimeout(syncMenu,0));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){shell.classList.remove('is-open');if(shell.contains(document.activeElement))document.activeElement.blur();syncMenu();}});
 document.addEventListener('click',e=>{if(!shell.contains(e.target)){shell.classList.remove('is-open');syncMenu();}});
+
+const panorama=document.querySelector('.hero');
+let lastPan=0;
+function pan(direction){const now=Date.now();if(now-lastPan<1350)return;const right=direction>0;if(panorama.classList.contains('at-right')===right)return;panorama.classList.toggle('at-right',right);lastPan=now;}
+panorama.addEventListener('wheel',e=>{e.preventDefault();const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;if(Math.abs(delta)>3)pan(delta);},{passive:false});
+let touchStart=null;
+panorama.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+panorama.addEventListener('touchend',e=>{if(!touchStart)return;const dx=touchStart.x-e.changedTouches[0].clientX,dy=touchStart.y-e.changedTouches[0].clientY;const delta=Math.abs(dx)>Math.abs(dy)?dx:dy;if(Math.abs(delta)>30)pan(delta);touchStart=null;},{passive:true});
+document.addEventListener('keydown',e=>{if(shell.contains(document.activeElement))return;if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();pan(1);}if(['ArrowUp','ArrowLeft','PageUp','Home'].includes(e.key)){e.preventDefault();pan(-1);}});
 </script>
 </body>
 </html>
