@@ -96,6 +96,10 @@
     .hero.at-right .studio-caption{animation:enter-studio 1.1s ease both}
     @keyframes enter-studio{0%{opacity:0}18%,60%{opacity:1}100%{opacity:0}}
     @media(prefers-reduced-motion:reduce){.hero.at-right .studio-caption{animation-duration:.8s}}
+
+    .sidebar-trigger{width:auto;height:42px;padding:0 16px 0 0;border:0;border-radius:24px;display:flex;align-items:center;gap:10px;font-family:Manrope,Arial,sans-serif}
+    .menu-symbol{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;font-size:21px}
+    .menu-label{font-size:13px;font-weight:700;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -106,7 +110,7 @@
 
 
 
-  <div class="sidebar-shell"><div class="sidebar-edge" aria-hidden="true"></div><button class="sidebar-trigger" aria-label="Open portfolio menu" aria-controls="portfolio-menu" aria-expanded="false">☰</button><aside id="portfolio-menu" class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
+  <div class="sidebar-shell"><div class="sidebar-edge" aria-hidden="true"></div><button class="sidebar-trigger" aria-label="View work" aria-controls="portfolio-menu" aria-expanded="false"><span class="menu-symbol" aria-hidden="true">☰</span><span class="menu-label">View work</span></button><aside id="portfolio-menu" class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="research-and-design.html"><span class="sidebar-number">02</span>Research and Design<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="product-design.html"><span class="sidebar-number">03</span>Product Design<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="graphic-design.html"><span class="sidebar-number">04</span>Graphic Design<span class="category-arrow" aria-hidden="true">↗</span></a>
