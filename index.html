@@ -115,6 +115,12 @@
  .object-tag:hover,.object-tag:focus-visible{opacity:1}
 }
 @media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
+
+@media(hover:hover) and (pointer:fine){
+ .object-tag{opacity:1;color:rgba(36,42,25,calc(.16 + .84 * var(--tag-spot,0)));background:rgba(173,182,143,var(--tag-spot,0));box-shadow:0 2px 10px rgba(0,0,0,calc(.13 * var(--tag-spot,0)));transition:color .16s,background .16s,box-shadow .16s}
+ .object-tag:hover,.object-tag:focus-visible{color:#242a19;background:#d5dfb8;box-shadow:0 4px 18px #0005}
+}
+@media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
 </style>
 </head>
 <body>
@@ -181,9 +187,9 @@ window.addEventListener('resize',positionTags);landingImage.addEventListener('lo
 panorama.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=panorama.getBoundingClientRect();panorama.style.setProperty('--spot-x',(e.clientX-r.left)+'px');panorama.style.setProperty('--spot-y',(e.clientY-r.top)+'px');panorama.classList.add('spot-active');});
 panorama.addEventListener('pointerleave',()=>panorama.classList.remove('spot-active'));
 
-function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLayer.children){const r=tag.getBoundingClientRect();const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right);const dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);const distance=Math.hypot(dx,dy);const strength=Math.max(0,Math.min(1,1-distance/210));tag.style.setProperty('--tag-light',String(.32+.68*strength));}}
+function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLayer.children){const r=tag.getBoundingClientRect();const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right);const dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);const distance=Math.hypot(dx,dy);const strength=Math.max(0,Math.min(1,1-distance/210));tag.style.setProperty('--tag-spot',String(strength));}}
 panorama.addEventListener('pointermove',lightTags);
-panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-light');});
+panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-spot');});
 
 </script>
 </body>
