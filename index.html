@@ -128,6 +128,10 @@
 .leaf-caption{max-width:340px;padding:0 20px;text-align:center;text-transform:none;font-size:13px;line-height:1.7;letter-spacing:.025em;color:#505b32}
 @keyframes leaf-unfold{0%{clip-path:polygon(0 100%,0 100%,0 100%,0 100%);transform:scale(.95)}40%{clip-path:polygon(0 45%,0 45%,55% 100%,0 100%)}75%{clip-path:polygon(0 0,100% 65%,100% 100%,0 100%)}100%{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){.leaf-growth.growing{animation:none;opacity:1}}
+
+.enter-hint{position:absolute;z-index:8;bottom:max(28px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:10px 16px;border-radius:22px;background:rgba(245,243,238,.88);color:#283120;font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;pointer-events:none;transition:opacity .25s}
+.enter-hint span{display:inline-block;margin-left:10px}
+.hero.at-right .enter-hint{opacity:0;visibility:hidden}
 </style>
 </head>
 <body>
@@ -148,6 +152,7 @@
 
   <main id="top">
     <section class="hero" aria-label="Landing page">
+<div class="enter-hint">Scroll to enter studio <span aria-hidden="true">↓</span></div>
       <img class="hero-img" src="https://raw.githubusercontent.com/arathy-leaf/website/main/Untitled_Artwork%2074.png?v=20260912" alt="Illustrated sketch of a creative studio workspace" />
       <div class="studio-spotlight" aria-hidden="true"></div><div class="studio-tags" inert aria-label="Explore objects in the studio"><a class="object-tag" href="paintings.html" data-right="0.534" data-y="0.045">Paintings</a><a class="object-tag" href="graphic-design.html" data-right="0.797" data-y="0.316">Graphic Design</a><a class="object-tag" href="illustrations.html" data-right="1.01" data-y="0.608">Digital Illustrations</a><a class="object-tag" href="photographs.html" data-right="1.36" data-y="0.646">Photography</a><a class="object-tag" href="sketchbooks.html" data-right="0.388" data-y="0.62">Sketchbooks!</a><a class="object-tag" href="research-and-design.html" data-right="0.71" data-y="0.738">Research and Design</a><a class="object-tag" href="product-design.html" data-right="0.178" data-y="0.748">Product Design</a><a class="object-tag" href="visual-journalism.html" data-right="1.07" data-y="0.84">Visual Journalism</a><a class="object-tag" href="writings.html" data-right="0.666" data-y="0.89">Writings</a></div>
 <p class="studio-caption" aria-hidden="true">entering studio</p>
