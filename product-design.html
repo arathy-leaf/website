@@ -76,13 +76,16 @@
 .back-studio{display:inline-flex;align-items:center;padding:11px 18px;border:1px solid var(--line);border-radius:24px;font-size:13px;font-weight:600;background:var(--paper)}
 .back-studio:hover{background:#d5dfb8}
 .back-studio:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+.studio-topbar{height:64px;padding:0;display:flex;justify-content:center;background:#35402c url('Untitled_Artwork%2074.png?v=20260912') right top / auto 100vh no-repeat;backdrop-filter:none;border-bottom:1px solid rgba(0,0,0,.2);z-index:30}
+.studio-topbar .back-studio{background:#f5f3ee;color:#242a19;padding:10px 18px;font-size:12px}
+.sidebar-trigger{top:11px}
+.collection{padding-top:105px}
+@media(max-width:700px){.studio-topbar{justify-content:flex-end;padding-right:12px}.studio-topbar .back-studio{font-size:11px;padding:10px 12px}.collection{padding-top:96px}}
 </style>
 </head>
 <body>
-  <nav>
-    <a class="brand" href="index.html#top">ARATHY A.</a>
-    
-  </nav>
+  <nav class="studio-topbar" aria-label="Studio navigation"><a class="back-studio" href="index.html#studio">← Back to studio</a></nav>
 
 
   <div class="sidebar-shell"><div class="sidebar-edge" aria-hidden="true"></div><button class="sidebar-trigger" aria-label="View work" aria-controls="portfolio-menu" aria-expanded="false"><span class="menu-symbol" aria-hidden="true">☰</span><span class="menu-label">View work</span></button><aside id="portfolio-menu" class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
@@ -94,7 +97,7 @@
 <a class="category-link" href="sketchbooks.html"><span class="sidebar-number">07</span>Sketchbooks!<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="photographs.html"><span class="sidebar-number">08</span>Photographs<span class="category-arrow" aria-hidden="true">↗</span></a></div></aside></div>
 
-  <main id="top"><section class="collection"><a class="back-studio" href="index.html#studio">← Back to studio</a><h1>Product Design</h1><p class="body">Selected projects and explorations.</p><div class="collection-grid"><article class="project" id="research-design"><span class="num">01 — PUBLIC SYSTEMS</span><div><h3>Waste, dignity & mobility in Kochi</h3><p>Rethinking the everyday tools and systems used by Haritha Karma Sena waste collectors through field research, systems mapping and product-service design.</p></div><div class="tags"><span class="tag">Social design</span><span class="tag">Systems</span><span class="tag">Product</span></div></article></div></section></main>
+  <main id="top"><section class="collection"><h1>Product Design</h1><p class="body">Selected projects and explorations.</p><div class="collection-grid"><article class="project" id="research-design"><span class="num">01 — PUBLIC SYSTEMS</span><div><h3>Waste, dignity & mobility in Kochi</h3><p>Rethinking the everyday tools and systems used by Haritha Karma Sena waste collectors through field research, systems mapping and product-service design.</p></div><div class="tags"><span class="tag">Social design</span><span class="tag">Systems</span><span class="tag">Product</span></div></article></div></section></main>
 
 <script>
 const shell=document.querySelector('.sidebar-shell');
