@@ -218,7 +218,10 @@ function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLaye
 panorama.addEventListener('pointermove',lightTags);
 panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-spot');});
 
-if(location.hash==='#studio'){
+const navigationKind=performance.getEntriesByType('navigation')[0]?.type;
+const returnToStudio=location.hash==='#studio'&&navigationKind!=='reload';
+if(location.hash==='#studio')history.replaceState(null,'',location.pathname+location.search);
+if(returnToStudio){
  panorama.classList.add('at-right');
  panorama.dataset.pan='right';
  const restoreStudio=()=>{positionTags();updateTags();};
@@ -230,6 +233,13 @@ function syncStudioNavigation(){const inside=panorama.classList.contains('at-rig
 new MutationObserver(syncStudioNavigation).observe(panorama,{attributes:true,attributeFilter:['data-pan']});
 new MutationObserver(syncStudioNavigation).observe(loader,{attributes:true,attributeFilter:['hidden']});
 syncStudioNavigation();
+window.addEventListener('pageshow',event=>{
+ if(event.persisted){
+  panorama.classList.remove('at-right','tags-ready','spot-active');
+  panorama.dataset.pan='left';
+  updateTags();syncStudioNavigation();
+ }
+});
 </script>
 </body>
 </html>
