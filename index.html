@@ -7,7 +7,7 @@
   <title>Arathy Aluckal — Social Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   <style>
     :root{--paper:#f5f3ee;--ink:#121212;--muted:#686761;--line:rgba(18,18,18,.18);--accent:#d84b2a}
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial,sans-serif}
@@ -125,7 +125,7 @@
 .leaf-growth{position:relative;width:min(320px,85vw);height:300px;overflow:hidden;opacity:0}
 .leaf-growth img{position:absolute;width:1500px;max-width:none;height:auto;left:50%;top:50%;transform:translate(-54%,-43%);mix-blend-mode:multiply}
 .leaf-growth.growing{opacity:1;animation:leaf-unfold 2.3s ease-out both}
-.leaf-caption{max-width:340px;padding:0 20px;text-align:center;text-transform:none;font-size:13px;line-height:1.7;letter-spacing:.025em;color:#505b32}
+
 @keyframes leaf-unfold{0%{clip-path:polygon(0 100%,0 100%,0 100%,0 100%);transform:scale(.95)}40%{clip-path:polygon(0 45%,0 45%,55% 100%,0 100%)}75%{clip-path:polygon(0 0,100% 65%,100% 100%,0 100%)}100%{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){.leaf-growth.growing{animation:none;opacity:1}}
 
@@ -154,7 +154,7 @@ body:not(.in-studio) .sidebar-shell{visibility:hidden;pointer-events:none}
 .sprig-leaf{transform:scale(0) rotate(-18deg);opacity:0;animation:leaf-open 1.15s cubic-bezier(.22,.65,.35,1) var(--delay) forwards}
 @keyframes stem-grow{to{stroke-dashoffset:0}}
 @keyframes leaf-open{0%{transform:scale(.05,.1) rotate(-18deg);opacity:0}35%{opacity:1}80%{transform:scale(1.03,.98) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.leaf-caption{max-width:390px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:17px;line-height:1.6}
+
 @media(prefers-reduced-motion:reduce){.sprig-line{animation:none;stroke-dashoffset:0}.sprig-leaf{animation:none;opacity:1;transform:none}}
 
 .leaf-growth{width:320px;max-width:90vw;mask:url(#artwork-growth-mask);-webkit-mask:url(#artwork-growth-mask)}
@@ -167,7 +167,8 @@ body.leaf-animating .growth-complete{animation:finish-leaf .8s ease-in 2.8s forw
 @keyframes finish-leaf{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.growth-reveal-path{stroke-dashoffset:0}.growth-complete{opacity:1}}
 
-.leaf-caption{font-style:normal;font-size:13px}
+
+.leaf-caption{max-width:390px;padding:0 20px;text-align:center;text-transform:none;font-family:'Playfair Display',Georgia,serif;font-style:normal;font-weight:400;font-size:13px;line-height:1.6;letter-spacing:.025em;color:#505b32}
 </style>
 </head>
 <body>
