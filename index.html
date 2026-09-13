@@ -199,6 +199,12 @@ function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLaye
 panorama.addEventListener('pointermove',lightTags);
 panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-spot');});
 
+if(location.hash==='#studio'){
+ panorama.classList.add('at-right');
+ panorama.dataset.pan='right';
+ const restoreStudio=()=>{positionTags();updateTags();};
+ if(landingImage.complete)restoreStudio();else landingImage.addEventListener('load',restoreStudio,{once:true});
+}
 </script>
 </body>
 </html>
