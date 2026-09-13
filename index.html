@@ -156,11 +156,21 @@ body:not(.in-studio) .sidebar-shell{visibility:hidden;pointer-events:none}
 @keyframes leaf-open{0%{transform:scale(.05,.1) rotate(-18deg);opacity:0}35%{opacity:1}80%{transform:scale(1.03,.98) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1}}
 .leaf-caption{max-width:390px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:17px;line-height:1.6}
 @media(prefers-reduced-motion:reduce){.sprig-line{animation:none;stroke-dashoffset:0}.sprig-leaf{animation:none;opacity:1;transform:none}}
+
+.leaf-growth{width:320px;max-width:90vw;mask:url(#artwork-growth-mask);-webkit-mask:url(#artwork-growth-mask)}
+.leaf-growth.growing{animation:none;opacity:1}
+.growth-reveal-path{stroke-width:var(--width);stroke-dasharray:1;stroke-dashoffset:1}
+body.leaf-animating .growth-reveal-path{animation:branch-reveal 1.5s ease-out var(--start) forwards}
+.growth-complete{opacity:0}
+body.leaf-animating .growth-complete{animation:finish-leaf .8s ease-in 2.8s forwards}
+@keyframes branch-reveal{to{stroke-dashoffset:0}}
+@keyframes finish-leaf{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.growth-reveal-path{stroke-dashoffset:0}.growth-complete{opacity:1}}
 </style>
 </head>
 <body>
 <div class="site-loader" id="site-loader" role="status" aria-live="polite" hidden>
-<div class="leaf-growth" aria-hidden="true"><img id="loader-leaf" src="Untitled_Artwork%2077.png" alt="" /></div><div class="loader-caption leaf-caption">perhaps the entire world is just a network of questions?</div></div>
+<svg class="leaf-mask-defs" width="0" height="0" aria-hidden="true"><defs><mask id="artwork-growth-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="300"><g fill="none" stroke="white" stroke-linecap="round"><path class="growth-reveal-path" pathLength="1" d="M90 270 Q125 215 143 165 Q170 110 223 45" style="--start:0s;--width:20px"/><path class="growth-reveal-path" pathLength="1" d="M118 226 Q112 192 100 176" style="--start:0.5700000000000001s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M129 204 Q152 198 183 209" style="--start:0.74s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M139 179 Q120 155 115 134" style="--start:0.91s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M153 150 Q186 153 211 173" style="--start:1.08s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M164 130 Q143 107 147 86" style="--start:1.25s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M179 106 Q209 110 235 91" style="--start:1.42s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M192 83 Q174 63 181 39" style="--start:1.5900000000000003s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M206 64 Q230 66 244 46" style="--start:1.7600000000000002s;--width:45px"/></g><rect class="growth-complete" width="320" height="300" fill="white"/></mask></defs></svg><div class="leaf-growth" aria-hidden="true"><img id="loader-leaf" src="Untitled_Artwork%2077.png" alt="" /></div><div class="loader-caption leaf-caption">perhaps the entire world is just a network of questions?</div></div>
 <script>document.getElementById('site-loader').hidden=false;window.loaderStarted=Date.now();</script>
 
 
@@ -209,8 +219,8 @@ const mainContent=document.querySelector('main');
 mainContent.inert=true;shell.inert=true;
 let loaderDone=false;
 const leafImage=document.getElementById('loader-leaf');
-const leafReady=new Promise(resolve=>{let done=false;const ready=()=>{if(done)return;done=true;document.querySelector('.leaf-growth').classList.add('growing');window.loaderStarted=Date.now();resolve();};if(leafImage.complete){ready();}else{leafImage.addEventListener('load',ready,{once:true});leafImage.addEventListener('error',ready,{once:true});}});
-function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.max(0,3400-(Date.now()-window.loaderStarted));setTimeout(()=>{loader.classList.add('is-finished');mainContent.inert=false;shell.inert=!panorama.classList.contains("at-right");setTimeout(()=>{loader.hidden=true;},550);},delay);}
+const leafReady=new Promise(resolve=>{let done=false;const ready=()=>{if(done)return;done=true;document.querySelector('.leaf-growth').classList.add('growing');document.body.classList.add('leaf-animating');window.loaderStarted=Date.now();resolve();};if(leafImage.complete){ready();}else{leafImage.addEventListener('load',ready,{once:true});leafImage.addEventListener('error',ready,{once:true});}});
+function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.max(0,4100-(Date.now()-window.loaderStarted));setTimeout(()=>{loader.classList.add('is-finished');mainContent.inert=false;shell.inert=!panorama.classList.contains("at-right");setTimeout(()=>{loader.hidden=true;},550);},delay);}
 async function artworkReady(){try{await Promise.all([landingImage.decode(),leafReady]);}catch(error){}finishLoading();}
 if(landingImage.complete){artworkReady();}else{landingImage.addEventListener('load',artworkReady,{once:true});landingImage.addEventListener('error',finishLoading,{once:true});}
 setTimeout(finishLoading,15000);
