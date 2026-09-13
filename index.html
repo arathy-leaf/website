@@ -109,6 +109,12 @@
 @media(hover:hover) and (pointer:fine){.hero.at-right.spot-active .studio-spotlight{opacity:1}}
 @media(max-width:700px){.object-tag{padding:8px 10px;font-size:11px}}
 @media(prefers-reduced-motion:reduce){.studio-tags,.studio-spotlight,.object-tag{transition:none}}
+
+@media(hover:hover) and (pointer:fine){
+ .object-tag{opacity:var(--tag-light,.32);transition:opacity .16s ease,background .18s,box-shadow .18s}
+ .object-tag:hover,.object-tag:focus-visible{opacity:1}
+}
+@media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
 </style>
 </head>
 <body>
@@ -174,6 +180,10 @@ new MutationObserver(updateTags).observe(panorama,{attributes:true,attributeFilt
 window.addEventListener('resize',positionTags);landingImage.addEventListener('load',positionTags);
 panorama.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=panorama.getBoundingClientRect();panorama.style.setProperty('--spot-x',(e.clientX-r.left)+'px');panorama.style.setProperty('--spot-y',(e.clientY-r.top)+'px');panorama.classList.add('spot-active');});
 panorama.addEventListener('pointerleave',()=>panorama.classList.remove('spot-active'));
+
+function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLayer.children){const r=tag.getBoundingClientRect();const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right);const dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);const distance=Math.hypot(dx,dy);const strength=Math.max(0,Math.min(1,1-distance/210));tag.style.setProperty('--tag-light',String(.32+.68*strength));}}
+panorama.addEventListener('pointermove',lightTags);
+panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-light');});
 
 </script>
 </body>
