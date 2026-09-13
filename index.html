@@ -100,6 +100,15 @@
     .sidebar-trigger{width:auto;height:42px;padding:0 16px 0 0;border:0;border-radius:24px;display:flex;align-items:center;gap:10px;font-family:Manrope,Arial,sans-serif}
     .menu-symbol{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;font-size:21px}
     .menu-label{font-size:13px;font-weight:700;white-space:nowrap}
+
+.studio-tags{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .25s}
+.hero.tags-ready .studio-tags{opacity:1;visibility:visible}
+.object-tag{position:absolute;transform:translate(-50%,-50%);padding:11px 17px;border-radius:18px;background:#adb68f;color:#242a19;font-family:'DM Mono',monospace;font-size:clamp(11px,1.05vw,15px);font-weight:500;white-space:nowrap;pointer-events:auto;box-shadow:0 2px 10px #0002;transition:background .18s,box-shadow .18s}
+.object-tag:hover,.object-tag:focus-visible{background:#d5dfb8;box-shadow:0 4px 18px #0005;outline:2px solid #fff;outline-offset:3px}
+.studio-spotlight{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;background:radial-gradient(circle 210px at var(--spot-x,50%) var(--spot-y,50%),transparent 15%,rgba(0,0,0,.12) 60%,rgba(0,0,0,.4) 100%);transition:opacity .25s}
+@media(hover:hover) and (pointer:fine){.hero.at-right.spot-active .studio-spotlight{opacity:1}}
+@media(max-width:700px){.object-tag{padding:8px 10px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){.studio-tags,.studio-spotlight,.object-tag{transition:none}}
 </style>
 </head>
 <body>
@@ -122,7 +131,8 @@
   <main id="top">
     <section class="hero" aria-label="Landing page">
       <img class="hero-img" src="https://raw.githubusercontent.com/arathy-leaf/website/main/Untitled_Artwork%2074.png?v=20260912" alt="Illustrated sketch of a creative studio workspace" />
-      <p class="studio-caption" aria-hidden="true">entering studio</p>
+      <div class="studio-spotlight" aria-hidden="true"></div><div class="studio-tags" inert aria-label="Explore objects in the studio"><a class="object-tag" href="paintings.html" data-right="0.534" data-y="0.045">Paintings</a><a class="object-tag" href="graphic-design.html" data-right="0.797" data-y="0.316">Graphic Design</a><a class="object-tag" href="illustrations.html" data-right="1.01" data-y="0.608">Digital Illustrations</a><a class="object-tag" href="photographs.html" data-right="1.36" data-y="0.646">Photography</a><a class="object-tag" href="sketchbooks.html" data-right="0.388" data-y="0.62">Sketchbooks!</a><a class="object-tag" href="research-and-design.html" data-right="0.71" data-y="0.738">Research and Design</a><a class="object-tag" href="product-design.html" data-right="0.178" data-y="0.748">Product Design</a><a class="object-tag" href="visual-journalism.html" data-right="1.07" data-y="0.84">Visual Journalism</a><a class="object-tag" href="writings.html" data-right="0.666" data-y="0.89">Writings</a></div>
+<p class="studio-caption" aria-hidden="true">entering studio</p>
     </section>
 
   </main>
@@ -140,7 +150,7 @@ document.addEventListener('click',e=>{if(!shell.contains(e.target)){shell.classL
 
 const panorama=document.querySelector('.hero');
 let lastPan=0;
-function pan(direction){if(!document.getElementById("site-loader").hidden)return;const now=Date.now();if(now-lastPan<1350)return;const right=direction>0;if(panorama.classList.contains('at-right')===right)return;panorama.classList.toggle('at-right',right);lastPan=now;}
+function pan(direction){if(!document.getElementById("site-loader").hidden)return;const now=Date.now();if(now-lastPan<1350)return;const right=direction>0;if(panorama.classList.contains('at-right')===right)return;panorama.classList.toggle('at-right',right);panorama.dataset.pan=right?'right':'left';lastPan=now;}
 panorama.addEventListener('wheel',e=>{e.preventDefault();const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;if(Math.abs(delta)>3)pan(delta);},{passive:false});
 let touchStart=null;
 panorama.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
@@ -155,6 +165,15 @@ function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.m
 async function artworkReady(){try{await landingImage.decode();}catch(error){}finishLoading();}
 if(landingImage.complete){artworkReady();}else{landingImage.addEventListener('load',artworkReady,{once:true});landingImage.addEventListener('error',finishLoading,{once:true});}
 setTimeout(finishLoading,15000);
+
+const tagLayer=document.querySelector('.studio-tags');
+let tagTimer;
+function positionTags(){const r=landingImage.getBoundingClientRect();const p=panorama.getBoundingClientRect();const imageHeight=Math.min(r.height,r.width/(landingImage.naturalWidth/landingImage.naturalHeight));const imageWidth=imageHeight*(landingImage.naturalWidth/landingImage.naturalHeight);for(const a of tagLayer.children){a.style.left=(r.left-p.left+imageWidth-Number(a.dataset.right)*imageHeight)+'px';a.style.top=(r.top-p.top+(r.height-imageHeight)/2+Number(a.dataset.y)*imageHeight)+'px';}}
+function updateTags(){clearTimeout(tagTimer);panorama.classList.remove('tags-ready');tagLayer.inert=true;if(panorama.classList.contains('at-right'))tagTimer=setTimeout(()=>{positionTags();panorama.classList.add('tags-ready');tagLayer.inert=false;},1300);}
+new MutationObserver(updateTags).observe(panorama,{attributes:true,attributeFilter:['data-pan']});
+window.addEventListener('resize',positionTags);landingImage.addEventListener('load',positionTags);
+panorama.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=panorama.getBoundingClientRect();panorama.style.setProperty('--spot-x',(e.clientX-r.left)+'px');panorama.style.setProperty('--spot-y',(e.clientY-r.top)+'px');panorama.classList.add('spot-active');});
+panorama.addEventListener('pointerleave',()=>panorama.classList.remove('spot-active'));
 
 </script>
 </body>
