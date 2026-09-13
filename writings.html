@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portfolio of Arathy Aluckal — social designer, researcher and visual storyteller." />
-  <title>Arathy Aluckal — Social Designer</title>
+  <title>Writings — Arathy Aluckal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
     :root{--paper:#f5f3ee;--ink:#121212;--muted:#686761;--line:rgba(18,18,18,.18);--accent:#d84b2a}
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial,sans-serif}
@@ -69,66 +69,16 @@
     @media(max-width:1000px){.portfolio-sidebar{position:fixed;top:0;bottom:0;margin:0;width:min(280px,85vw);padding:88px 22px 28px}.sidebar-heading{padding-bottom:24px}.sidebar-sections{padding-top:0}}
     @media(prefers-reduced-motion:reduce){.portfolio-sidebar{transition:none}}
 
-    html,body{height:100%;overflow:hidden;background:#fff}
-    main{height:100%;margin:0}
-    .hero{position:fixed;inset:0;width:100%;height:100dvh;min-height:0;padding:0;border:0;overflow:hidden;background:#fff;touch-action:none}
-    .hero::after{display:none}
-    .hero-img{position:absolute;inset:auto;top:0;left:0;width:max(150vw,234.6dvh);height:auto;max-width:none;object-fit:initial;filter:none;transform:translateX(0);transition:transform 1.25s cubic-bezier(.22,.61,.36,1);will-change:transform}
-    .hero.at-right .hero-img{transform:translateX(calc(100vw - 100%))}
-    .sidebar-trigger{top:18px}
-    @media(prefers-reduced-motion:reduce){.hero-img{transition:none}}
-
-    .site-loader{position:fixed;inset:0;z-index:100;background:#f5f3ee;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;transition:opacity .5s ease,visibility .5s ease}
-    .site-loader[hidden]{display:none}
-    .site-loader.is-finished{opacity:0;visibility:hidden;pointer-events:none}
-    .loader-mark{width:76px;height:76px;fill:none;stroke:#121212;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:240;animation:sketch-in 1.8s ease-in-out infinite}
-    .loader-name{font-size:12px;letter-spacing:.24em;font-family:'DM Mono',monospace}
-    .loader-caption{font-size:10px;color:var(--muted);letter-spacing:.12em;font-family:'DM Mono',monospace;text-transform:uppercase}
-    @keyframes sketch-in{0%{stroke-dashoffset:240}65%,100%{stroke-dashoffset:0}}
-    @media(prefers-reduced-motion:reduce){.loader-mark{animation:none}.site-loader{transition:none}}
-
-    /* Desktop: show the complete illustration height without cropping. */
-    @media(min-width:1001px){
-      .hero-img{height:100dvh;width:auto;min-width:100vw;object-fit:contain;object-position:left center}
-    }
-
-    .studio-caption{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;padding:0;background:transparent;color:#fff;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(26px,3vw,42px);letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none}
-    .hero.at-right .studio-caption{animation:enter-studio 1.1s ease both}
-    @keyframes enter-studio{0%{opacity:0}18%,60%{opacity:1}100%{opacity:0}}
-    @media(prefers-reduced-motion:reduce){.hero.at-right .studio-caption{animation-duration:.8s}}
-
     .sidebar-trigger{width:auto;height:42px;padding:0 16px 0 0;border:0;border-radius:24px;display:flex;align-items:center;gap:10px;font-family:Manrope,Arial,sans-serif}
     .menu-symbol{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;font-size:21px}
     .menu-label{font-size:13px;font-weight:700;white-space:nowrap}
-
-.studio-tags{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .25s}
-.hero.tags-ready .studio-tags{opacity:1;visibility:visible}
-.object-tag{position:absolute;transform:translate(-50%,-50%);padding:11px 17px;border-radius:18px;background:#adb68f;color:#242a19;font-family:'DM Mono',monospace;font-size:clamp(11px,1.05vw,15px);font-weight:500;white-space:nowrap;pointer-events:auto;box-shadow:0 2px 10px #0002;transition:background .18s,box-shadow .18s}
-.object-tag:hover,.object-tag:focus-visible{background:#d5dfb8;box-shadow:0 4px 18px #0005;outline:2px solid #fff;outline-offset:3px}
-.studio-spotlight{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;background:radial-gradient(circle 210px at var(--spot-x,50%) var(--spot-y,50%),transparent 15%,rgba(0,0,0,.12) 60%,rgba(0,0,0,.4) 100%);transition:opacity .25s}
-@media(hover:hover) and (pointer:fine){.hero.at-right.spot-active .studio-spotlight{opacity:1}}
-@media(max-width:700px){.object-tag{padding:8px 10px;font-size:11px}}
-@media(prefers-reduced-motion:reduce){.studio-tags,.studio-spotlight,.object-tag{transition:none}}
-
-@media(hover:hover) and (pointer:fine){
- .object-tag{opacity:var(--tag-light,.32);transition:opacity .16s ease,background .18s,box-shadow .18s}
- .object-tag:hover,.object-tag:focus-visible{opacity:1}
-}
-@media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
-
-@media(hover:hover) and (pointer:fine){
- .object-tag{opacity:1;color:rgba(36,42,25,calc(.16 + .84 * var(--tag-spot,0)));background:rgba(173,182,143,var(--tag-spot,0));box-shadow:0 2px 10px rgba(0,0,0,calc(.13 * var(--tag-spot,0)));transition:color .16s,background .16s,box-shadow .16s}
- .object-tag:hover,.object-tag:focus-visible{color:#242a19;background:#d5dfb8;box-shadow:0 4px 18px #0005}
-}
-@media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
 </style>
 </head>
 <body>
-<div class="site-loader" id="site-loader" role="status" aria-live="polite" hidden>
-<svg class="loader-mark" viewBox="0 0 80 80" aria-hidden="true"><path d="M14 64 L18 15 L65 12 L67 65 Z M22 55 L35 34 L44 46 L52 30 L61 55 Z M28 25 L29 25"/></svg>
-<div class="loader-name">ARATHY ALUCKAL</div><div class="loader-caption">Opening the studio</div></div>
-<script>document.getElementById('site-loader').hidden=false;window.loaderStarted=Date.now();</script>
-
+  <nav>
+    <a class="brand" href="index.html#top">ARATHY A.</a>
+    
+  </nav>
 
 
   <div class="sidebar-shell"><div class="sidebar-edge" aria-hidden="true"></div><button class="sidebar-trigger" aria-label="View work" aria-controls="portfolio-menu" aria-expanded="false"><span class="menu-symbol" aria-hidden="true">☰</span><span class="menu-label">View work</span></button><aside id="portfolio-menu" class="portfolio-sidebar" aria-label="Portfolio sections"><div class="sidebar-heading">Explore my work</div><div class="sidebar-sections"><a class="category-link" href="visual-journalism.html"><span class="sidebar-number">01</span>Visual Journalism<span class="category-arrow" aria-hidden="true">↗</span></a>
@@ -140,14 +90,7 @@
 <a class="category-link" href="sketchbooks.html"><span class="sidebar-number">07</span>Sketchbooks!<span class="category-arrow" aria-hidden="true">↗</span></a>
 <a class="category-link" href="photographs.html"><span class="sidebar-number">08</span>Photographs<span class="category-arrow" aria-hidden="true">↗</span></a></div></aside></div>
 
-  <main id="top">
-    <section class="hero" aria-label="Landing page">
-      <img class="hero-img" src="https://raw.githubusercontent.com/arathy-leaf/website/main/Untitled_Artwork%2074.png?v=20260912" alt="Illustrated sketch of a creative studio workspace" />
-      <div class="studio-spotlight" aria-hidden="true"></div><div class="studio-tags" inert aria-label="Explore objects in the studio"><a class="object-tag" href="paintings.html" data-right="0.534" data-y="0.045">Paintings</a><a class="object-tag" href="graphic-design.html" data-right="0.797" data-y="0.316">Graphic Design</a><a class="object-tag" href="illustrations.html" data-right="1.01" data-y="0.608">Digital Illustrations</a><a class="object-tag" href="photographs.html" data-right="1.36" data-y="0.646">Photography</a><a class="object-tag" href="sketchbooks.html" data-right="0.388" data-y="0.62">Sketchbooks!</a><a class="object-tag" href="research-and-design.html" data-right="0.71" data-y="0.738">Research and Design</a><a class="object-tag" href="product-design.html" data-right="0.178" data-y="0.748">Product Design</a><a class="object-tag" href="visual-journalism.html" data-right="1.07" data-y="0.84">Visual Journalism</a><a class="object-tag" href="writings.html" data-right="0.666" data-y="0.89">Writings</a></div>
-<p class="studio-caption" aria-hidden="true">entering studio</p>
-    </section>
-
-  </main>
+  <main id="top"><section class="collection"><a class="mono" href="index.html">← Back to home</a><h1>Writings</h1><p class="body">Selected projects and explorations.</p><div class="collection-grid"><div class="empty-collection">New work will appear here soon.</div></div></section></main>
 
 <script>
 const shell=document.querySelector('.sidebar-shell');
@@ -159,38 +102,6 @@ shell.addEventListener('mouseenter',syncMenu);shell.addEventListener('mouseleave
 shell.addEventListener('focusin',syncMenu);shell.addEventListener('focusout',()=>setTimeout(syncMenu,0));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){shell.classList.remove('is-open');if(shell.contains(document.activeElement))document.activeElement.blur();syncMenu();}});
 document.addEventListener('click',e=>{if(!shell.contains(e.target)){shell.classList.remove('is-open');syncMenu();}});
-
-const panorama=document.querySelector('.hero');
-let lastPan=0;
-function pan(direction){if(!document.getElementById("site-loader").hidden)return;const now=Date.now();if(now-lastPan<1350)return;const right=direction>0;if(panorama.classList.contains('at-right')===right)return;panorama.classList.toggle('at-right',right);panorama.dataset.pan=right?'right':'left';lastPan=now;}
-panorama.addEventListener('wheel',e=>{e.preventDefault();const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;if(Math.abs(delta)>3)pan(delta);},{passive:false});
-let touchStart=null;
-panorama.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-panorama.addEventListener('touchend',e=>{if(!touchStart)return;const dx=touchStart.x-e.changedTouches[0].clientX,dy=touchStart.y-e.changedTouches[0].clientY;const delta=Math.abs(dx)>Math.abs(dy)?dx:dy;if(Math.abs(delta)>30)pan(delta);touchStart=null;},{passive:true});
-document.addEventListener('keydown',e=>{if(shell.contains(document.activeElement))return;if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();pan(1);}if(['ArrowUp','ArrowLeft','PageUp','Home'].includes(e.key)){e.preventDefault();pan(-1);}});
-const loader=document.getElementById('site-loader');
-const landingImage=document.querySelector('.hero-img');
-const mainContent=document.querySelector('main');
-mainContent.inert=true;shell.inert=true;
-let loaderDone=false;
-function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.max(0,1200-(Date.now()-window.loaderStarted));setTimeout(()=>{loader.classList.add('is-finished');mainContent.inert=false;shell.inert=false;setTimeout(()=>{loader.hidden=true;},550);},delay);}
-async function artworkReady(){try{await landingImage.decode();}catch(error){}finishLoading();}
-if(landingImage.complete){artworkReady();}else{landingImage.addEventListener('load',artworkReady,{once:true});landingImage.addEventListener('error',finishLoading,{once:true});}
-setTimeout(finishLoading,15000);
-
-const tagLayer=document.querySelector('.studio-tags');
-let tagTimer;
-function positionTags(){const r=landingImage.getBoundingClientRect();const p=panorama.getBoundingClientRect();const imageHeight=Math.min(r.height,r.width/(landingImage.naturalWidth/landingImage.naturalHeight));const imageWidth=imageHeight*(landingImage.naturalWidth/landingImage.naturalHeight);for(const a of tagLayer.children){a.style.left=(r.left-p.left+imageWidth-Number(a.dataset.right)*imageHeight)+'px';a.style.top=(r.top-p.top+(r.height-imageHeight)/2+Number(a.dataset.y)*imageHeight)+'px';}}
-function updateTags(){clearTimeout(tagTimer);panorama.classList.remove('tags-ready');tagLayer.inert=true;if(panorama.classList.contains('at-right'))tagTimer=setTimeout(()=>{positionTags();panorama.classList.add('tags-ready');tagLayer.inert=false;},1300);}
-new MutationObserver(updateTags).observe(panorama,{attributes:true,attributeFilter:['data-pan']});
-window.addEventListener('resize',positionTags);landingImage.addEventListener('load',positionTags);
-panorama.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=panorama.getBoundingClientRect();panorama.style.setProperty('--spot-x',(e.clientX-r.left)+'px');panorama.style.setProperty('--spot-y',(e.clientY-r.top)+'px');panorama.classList.add('spot-active');});
-panorama.addEventListener('pointerleave',()=>panorama.classList.remove('spot-active'));
-
-function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLayer.children){const r=tag.getBoundingClientRect();const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right);const dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);const distance=Math.hypot(dx,dy);const strength=Math.max(0,Math.min(1,1-distance/210));tag.style.setProperty('--tag-spot',String(strength));}}
-panorama.addEventListener('pointermove',lightTags);
-panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-spot');});
-
 </script>
 </body>
 </html>
