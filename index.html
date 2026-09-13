@@ -121,12 +121,18 @@
  .object-tag:hover,.object-tag:focus-visible{color:#242a19;background:#d5dfb8;box-shadow:0 4px 18px #0005}
 }
 @media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
+
+.leaf-growth{position:relative;width:min(320px,85vw);height:300px;overflow:hidden;opacity:0}
+.leaf-growth img{position:absolute;width:1500px;max-width:none;height:auto;left:50%;top:50%;transform:translate(-54%,-43%);mix-blend-mode:multiply}
+.leaf-growth.growing{opacity:1;animation:leaf-unfold 2.3s ease-out both}
+.leaf-caption{max-width:340px;padding:0 20px;text-align:center;text-transform:none;font-size:13px;line-height:1.7;letter-spacing:.025em;color:#505b32}
+@keyframes leaf-unfold{0%{clip-path:polygon(0 100%,0 100%,0 100%,0 100%);transform:scale(.95)}40%{clip-path:polygon(0 45%,0 45%,55% 100%,0 100%)}75%{clip-path:polygon(0 0,100% 65%,100% 100%,0 100%)}100%{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.leaf-growth.growing{animation:none;opacity:1}}
 </style>
 </head>
 <body>
 <div class="site-loader" id="site-loader" role="status" aria-live="polite" hidden>
-<svg class="loader-mark" viewBox="0 0 80 80" aria-hidden="true"><path d="M14 64 L18 15 L65 12 L67 65 Z M22 55 L35 34 L44 46 L52 30 L61 55 Z M28 25 L29 25"/></svg>
-<div class="loader-name">ARATHY ALUCKAL</div><div class="loader-caption">Opening the studio</div></div>
+<div class="leaf-growth" aria-hidden="true"><img id="loader-leaf" src="Untitled_Artwork%2077.png" alt="" /></div><div class="loader-caption leaf-caption">y y y...a branching out network of questions</div></div>
 <script>document.getElementById('site-loader').hidden=false;window.loaderStarted=Date.now();</script>
 
 
@@ -173,8 +179,10 @@ const landingImage=document.querySelector('.hero-img');
 const mainContent=document.querySelector('main');
 mainContent.inert=true;shell.inert=true;
 let loaderDone=false;
-function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.max(0,1200-(Date.now()-window.loaderStarted));setTimeout(()=>{loader.classList.add('is-finished');mainContent.inert=false;shell.inert=false;setTimeout(()=>{loader.hidden=true;},550);},delay);}
-async function artworkReady(){try{await landingImage.decode();}catch(error){}finishLoading();}
+const leafImage=document.getElementById('loader-leaf');
+const leafReady=new Promise(resolve=>{const ready=()=>{document.querySelector('.leaf-growth').classList.add('growing');window.loaderStarted=Date.now();resolve();};if(leafImage.complete){ready();}else{leafImage.addEventListener('load',ready,{once:true});leafImage.addEventListener('error',ready,{once:true});}});
+function finishLoading(){if(loaderDone)return;loaderDone=true;const delay=Math.max(0,2600-(Date.now()-window.loaderStarted));setTimeout(()=>{loader.classList.add('is-finished');mainContent.inert=false;shell.inert=false;setTimeout(()=>{loader.hidden=true;},550);},delay);}
+async function artworkReady(){try{await Promise.all([landingImage.decode(),leafReady]);}catch(error){}finishLoading();}
 if(landingImage.complete){artworkReady();}else{landingImage.addEventListener('load',artworkReady,{once:true});landingImage.addEventListener('error',finishLoading,{once:true});}
 setTimeout(finishLoading,15000);
 
