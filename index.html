@@ -169,6 +169,10 @@ body.leaf-animating .growth-complete{animation:finish-leaf .8s ease-in 2.8s forw
 
 
 .leaf-caption{max-width:390px;padding:0 20px;text-align:center;text-transform:none;font-family:'Playfair Display',Georgia,serif;font-style:normal;font-weight:400;font-size:13px;line-height:1.6;letter-spacing:.025em;color:#505b32}
+
+@media(hover:hover) and (pointer:fine){
+.hero.default-spot .object-tag[href="visual-journalism.html"]{background:#d5dfb8;color:#242a19;outline:2px solid white;outline-offset:3px}
+}
 </style>
 </head>
 <body>
@@ -231,12 +235,23 @@ setTimeout(finishLoading,15000);
 const tagLayer=document.querySelector('.studio-tags');
 let tagTimer;
 function positionTags(){const r=landingImage.getBoundingClientRect();const p=panorama.getBoundingClientRect();const imageHeight=Math.min(r.height,r.width/(landingImage.naturalWidth/landingImage.naturalHeight));const imageWidth=imageHeight*(landingImage.naturalWidth/landingImage.naturalHeight);for(const a of tagLayer.children){a.style.left=(r.left-p.left+imageWidth-Number(a.dataset.right)*imageHeight)+'px';a.style.top=(r.top-p.top+(r.height-imageHeight)/2+Number(a.dataset.y)*imageHeight)+'px';}}
-function updateTags(){clearTimeout(tagTimer);panorama.classList.remove('tags-ready');tagLayer.inert=true;if(panorama.classList.contains('at-right'))tagTimer=setTimeout(()=>{positionTags();panorama.classList.add('tags-ready');tagLayer.inert=false;},1300);}
+function updateTags(){clearTimeout(tagTimer);panorama.classList.remove('tags-ready');tagLayer.inert=true;if(panorama.classList.contains('at-right'))tagTimer=setTimeout(()=>{positionTags();panorama.classList.add('tags-ready');tagLayer.inert=false;defaultStudioSpotlight();},1300);}
 new MutationObserver(updateTags).observe(panorama,{attributes:true,attributeFilter:['data-pan']});
 window.addEventListener('resize',positionTags);landingImage.addEventListener('load',positionTags);
-panorama.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=panorama.getBoundingClientRect();panorama.style.setProperty('--spot-x',(e.clientX-r.left)+'px');panorama.style.setProperty('--spot-y',(e.clientY-r.top)+'px');panorama.classList.add('spot-active');});
+panorama.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;panorama.classList.remove('default-spot');const r=panorama.getBoundingClientRect();panorama.style.setProperty('--spot-x',(e.clientX-r.left)+'px');panorama.style.setProperty('--spot-y',(e.clientY-r.top)+'px');panorama.classList.add('spot-active');});
 panorama.addEventListener('pointerleave',()=>panorama.classList.remove('spot-active'));
 
+function defaultStudioSpotlight(){
+ if(!panorama.classList.contains('at-right'))return;
+ const tag=tagLayer.querySelector('[href="visual-journalism.html"]');
+ const t=tag.getBoundingClientRect(),p=panorama.getBoundingClientRect();
+ const x=t.left+t.width/2,y=t.top+t.height/2;
+ panorama.style.setProperty('--spot-x',(x-p.left)+'px');
+ panorama.style.setProperty('--spot-y',(y-p.top)+'px');
+ panorama.classList.add('spot-active','default-spot');
+ lightTags({clientX:x,clientY:y,pointerType:'mouse'});
+}
+window.addEventListener('resize',()=>{if(panorama.classList.contains('default-spot'))defaultStudioSpotlight();});
 function lightTags(e){if(e.pointerType==='touch')return;for(const tag of tagLayer.children){const r=tag.getBoundingClientRect();const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right);const dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);const distance=Math.hypot(dx,dy);const strength=Math.max(0,Math.min(1,1-distance/210));tag.style.setProperty('--tag-spot',String(strength));}}
 panorama.addEventListener('pointermove',lightTags);
 panorama.addEventListener('pointerleave',()=>{for(const tag of tagLayer.children)tag.style.removeProperty('--tag-spot');});
