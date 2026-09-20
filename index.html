@@ -160,9 +160,9 @@ body:not(.in-studio) .sidebar-shell{visibility:hidden;pointer-events:none}
 .leaf-growth{width:320px;max-width:90vw;mask:url(#artwork-growth-mask);-webkit-mask:url(#artwork-growth-mask)}
 .leaf-growth.growing{animation:none;opacity:1}
 .growth-reveal-path{stroke-width:var(--width);stroke-dasharray:1;stroke-dashoffset:1}
-body.leaf-animating .growth-reveal-path{animation:branch-reveal 1.5s ease-out var(--start) forwards}
+body.leaf-animating .growth-reveal-path{animation:branch-reveal var(--duration,.85s) cubic-bezier(.4,0,.2,1) var(--start) forwards}
 .growth-complete{opacity:0}
-body.leaf-animating .growth-complete{animation:finish-leaf .8s ease-in 2.8s forwards}
+body.leaf-animating .growth-complete{animation:finish-leaf .65s ease-in-out 3.45s forwards}
 @keyframes branch-reveal{to{stroke-dashoffset:0}}
 @keyframes finish-leaf{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.growth-reveal-path{stroke-dashoffset:0}.growth-complete{opacity:1}}
@@ -183,11 +183,18 @@ body.leaf-animating .growth-complete{animation:finish-leaf .8s ease-in 2.8s forw
 .hero .object-tag:focus-visible{outline:2px dashed #f5f3ee;outline-offset:6px}
 @media(hover:hover) and (pointer:fine){.object-tag::before{opacity:var(--tag-spot,0)}.object-tag:hover::before,.object-tag:focus-visible::before,.hero.default-spot .object-tag[href="visual-journalism.html"]::before{opacity:1}}
 @media(prefers-reduced-motion:reduce){.object-tag::before{transition:none}}
+
+/* Compact, centered loader; retain artwork coordinates for the branching mask. */
+.site-loader{gap:18px;padding:24px;box-sizing:border-box}
+.loader-leaf-frame{position:relative;width:154px;height:144px;flex:none}
+.loader-leaf-frame .leaf-growth{position:absolute;left:0;top:0;width:320px;max-width:none;height:300px;transform:scale(.48);transform-origin:top left}
+.site-loader .leaf-caption{width:min(300px,100%);max-width:300px;margin:0 auto;padding:0;font-size:11px;line-height:1.6;font-style:normal;text-align:center;letter-spacing:.015em}
+@media(prefers-reduced-motion:reduce){body.leaf-animating .growth-reveal-path,body.leaf-animating .growth-complete{animation:none}.growth-reveal-path{stroke-dashoffset:0}.growth-complete{opacity:1}}
 </style>
 </head>
 <body>
 <div class="site-loader" id="site-loader" role="status" aria-live="polite" hidden>
-<svg class="leaf-mask-defs" width="0" height="0" aria-hidden="true"><defs><mask id="artwork-growth-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="300"><g fill="none" stroke="white" stroke-linecap="round"><path class="growth-reveal-path" pathLength="1" d="M90 270 Q125 215 143 165 Q170 110 223 45" style="--start:0s;--width:20px"/><path class="growth-reveal-path" pathLength="1" d="M118 226 Q112 192 100 176" style="--start:0.5700000000000001s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M129 204 Q152 198 183 209" style="--start:0.74s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M139 179 Q120 155 115 134" style="--start:0.91s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M153 150 Q186 153 211 173" style="--start:1.08s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M164 130 Q143 107 147 86" style="--start:1.25s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M179 106 Q209 110 235 91" style="--start:1.42s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M192 83 Q174 63 181 39" style="--start:1.5900000000000003s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M206 64 Q230 66 244 46" style="--start:1.7600000000000002s;--width:45px"/></g><rect class="growth-complete" width="320" height="300" fill="white"/></mask></defs></svg><div class="leaf-growth" aria-hidden="true"><img id="loader-leaf" src="Untitled_Artwork%2077.png" alt="" /></div><div class="loader-caption leaf-caption">perhaps the entire world is just a network of questions?</div></div>
+<svg class="leaf-mask-defs" width="0" height="0" aria-hidden="true"><defs><filter id="growth-soft-edge" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2"/></filter><mask id="artwork-growth-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="300"><g fill="none" stroke="white" stroke-linecap="round" filter="url(#growth-soft-edge)"><path class="growth-reveal-path" pathLength="1" d="M90 270 Q125 215 143 165 Q170 110 223 45" style="--start:0s;--duration:2.6s;--width:20px"/><path class="growth-reveal-path" pathLength="1" d="M118 226 Q112 192 100 176" style="--start:0.35s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M129 204 Q152 198 183 209" style="--start:0.69s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M139 179 Q120 155 115 134" style="--start:1.03s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M153 150 Q186 153 211 173" style="--start:1.37s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M164 130 Q143 107 147 86" style="--start:1.71s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M179 106 Q209 110 235 91" style="--start:2.05s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M192 83 Q174 63 181 39" style="--start:2.39s;--duration:.85s;--width:45px"/><path class="growth-reveal-path" pathLength="1" d="M206 64 Q230 66 244 46" style="--start:2.73s;--duration:.85s;--width:45px"/></g><rect class="growth-complete" width="320" height="300" fill="white"/></mask></defs></svg><div class="loader-leaf-frame" aria-hidden="true"><div class="leaf-growth"><img id="loader-leaf" src="Untitled_Artwork%2077.png" alt="" /></div></div><div class="loader-caption leaf-caption">perhaps the entire world is just a network of questions?</div></div>
 <script>document.getElementById('site-loader').hidden=false;window.loaderStarted=Date.now();</script>
 
 
